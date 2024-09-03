@@ -6,5 +6,5 @@ module.exports = {
   parserOptions: {
     project: true,
   },
-  ignorePatterns: ["tailwind.config.js"],
+  ignorePatterns: ["tailwind.config.js", "next.config.mjs"],
 };

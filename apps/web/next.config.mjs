@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  transpilePackages: ["@vms/ui"],
+};
 
 export default nextConfig;
