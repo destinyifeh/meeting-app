@@ -10,7 +10,12 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'input-border-color': '#1D1D1F',
+       
+      },
+    },
   },
   plugins: [],
 };
