@@ -223,7 +223,7 @@ const navigation: NavigationItemType[] = [
     },
   },
   {
-    name: "Admin Reports",
+    name: "Admin Report",
     href: "/app/admin",
     icon: IoMdChatbubbles,
     isCurrent: ({ pathname }) => {
