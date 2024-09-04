@@ -10,7 +10,7 @@ export const SuccessfulPasswordReset: React.FC = () => {
   return (
     <div className="flex flex-col">
       <div className="mb-5">
-        <h2 className="leading-[3.6rem] font-bold text-[2.4rem] mb-[1.3rem] text-center">
+        <h2 className="leading-[3.6rem] font-bold text-[2.4rem] mb-[1.3rem] text-center text-brand">
           Password Reset Successful
         </h2>
         <div className="w-[370px]">
@@ -46,7 +46,7 @@ export function EmailSent({ updateScreen }: Emailprops): React.JSX.Element {
   return (
     <div className="flex flex-col">
       <div className="mb-5">
-        <h2 className="leading-[3.6rem] font-bold text-[2.4rem] mb-[1.3rem] text-center">
+        <h2 className="leading-[3.6rem] font-bold text-[2.4rem] mb-[1.3rem] text-center text-brand">
           Check Your Email
         </h2>
         <div className="w-[350px]">
