@@ -10,7 +10,7 @@ export const Login = () => {
         </h2>
         <LoginForm />
         <Link
-          href="#"
+          href="/auth/reset-password"
           className=" text-brand-text underline hover:text-gray-700 font-normal text-[1.4rem] leading-[16.8px]"
         >
           Forgot your password?

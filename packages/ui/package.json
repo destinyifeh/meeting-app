@@ -2,15 +2,16 @@
   "name": "@vms/ui",
   "version": "0.0.0",
   "private": true,
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    }
+  "sideEffects": false,
+  "main": "./src/index.tsx",
+  "types": "./src/index.tsx",
+  "export": {
+    ".": "./src/index.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
-    "build": "tsc"
+    "type-check": "tsc --pretty --noEmit",
+    "dev": "tsc --watch"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
@@ -20,10 +21,15 @@
     "@types/node": "^20.11.24",
     "@types/react": "^18.2.61",
     "@types/react-dom": "^18.2.19",
+    "autoprefixer": "^10.4.20",
     "eslint": "^8.57.0",
+    "postcss": "^8.4.44",
+    "tailwindcss": "^3.4.10",
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "@radix-ui/react-checkbox": "^1.1.1",
+    "class-variance-authority": "^0.7.0",
     "react": "^18.2.0",
     "react-hook-form": "^7.53.0"
   }
