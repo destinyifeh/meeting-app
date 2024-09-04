@@ -14,20 +14,19 @@ const schema = z
   .object({
     password: z
       .string()
+      .trim()
       .min(6, "Password must be at least 6 characters long")
       .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
       .regex(/[a-z]/, "Password must contain at least one lowercase letter")
       .regex(/[0-9]/, "Password must contain at least one number"),
     confirmPassword: z
       .string()
+      .trim()
       .min(6, "Confirm Password must be at least 6 characters long"),
-    // .regex(/[A-Z]/, 'Confirm Password must contain at least one uppercase letter')
-    // .regex(/[a-z]/, 'Confirm Password must contain at least one lowercase letter')
-    // .regex(/[0-9]/, 'Confirm Password must contain at least one number')
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
-    path: ["confirmPassword"], // Path to the field where the error should be displayed
+    path: ["confirmPassword"],
   });
 
 type FormValues = z.infer<typeof schema>;
