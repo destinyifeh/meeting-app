@@ -44,21 +44,21 @@ export const LoginForm = () => {
               type="email"
               placeholder="Email"
               containerClassName="mb-3"
-              className=" w-full p-4 rounded-lg  h-[4.5rem] placeholder:text-[14px] text-[16px]"
+              className=" w-full p-4 rounded-lg  h-[4.5rem] placeholder:text-[14px] text-brand text-[16px]"
               {...register("email")}
             />
 
             <PasswordInputField
               type="password"
               placeholder="Password"
-              className="w-full p-4 rounded-lg  h-[4.5rem] placeholder:text-[14px] text-[16px]"
+              className="w-full p-4 rounded-lg  h-[4.5rem] placeholder:text-[14px] text-brand text-[16px]"
               {...register("password")}
             />
           </div>
         </div>
 
         <div className="flex items-center justify-between mb-6">
-          <label className="flex items-center text-xl leading-[16.8px] gap-2">
+          <label className="flex items-center text-xl text-brand leading-[16.8px] gap-2">
             <Checkbox checked={isChecked} />
             Remember me
           </label>

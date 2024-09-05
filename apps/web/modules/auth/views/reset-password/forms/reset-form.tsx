@@ -14,19 +14,20 @@ const schema = z
   .object({
     password: z
       .string()
-      .trim()
       .min(6, "Password must be at least 6 characters long")
       .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
       .regex(/[a-z]/, "Password must contain at least one lowercase letter")
       .regex(/[0-9]/, "Password must contain at least one number"),
     confirmPassword: z
       .string()
-      .trim()
       .min(6, "Confirm Password must be at least 6 characters long"),
+    // .regex(/[A-Z]/, 'Confirm Password must contain at least one uppercase letter')
+    // .regex(/[a-z]/, 'Confirm Password must contain at least one lowercase letter')
+    // .regex(/[0-9]/, 'Confirm Password must contain at least one number')
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
-    path: ["confirmPassword"],
+    path: ["confirmPassword"], // Path to the field where the error should be displayed
   });
 
 type FormValues = z.infer<typeof schema>;
@@ -67,7 +68,7 @@ export const SuperAdminResetForgotPasswordForm = ({
           <h2 className="leading-[3.6rem] font-bold text-[2.4rem] mb-[1.3rem] text-center">
             Set a new password
           </h2>
-          <p className="text-brand-text text-center font-normal text-[1.4rem] leading-[16.8px]">
+          <p className="text-brand text-center font-normal text-[1.4rem] leading-[16.8px]">
             Create a new password. Ensure it differs from previous ones for
             security
           </p>
@@ -101,12 +102,12 @@ export const SuperAdminResetForgotPasswordForm = ({
         </Button>
 
         <div className="mt-5 text-center">
-          <span className="text-brand-text text-center font-normal text-[1.4rem] leading-[16.8px]">
+          <span className="text-brand text-center font-normal text-[1.4rem] leading-[16.8px]">
             {" "}
             <Link href="/auth/login" className="text-[#ED1C24]">
               * click here{" "}
             </Link>
-            <span className="text-brand-text">to go back to sign in page.</span>
+            <span className="text-brand">to go back to sign in page.</span>
           </span>
         </div>
       </form>

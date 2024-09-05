@@ -10,11 +10,11 @@ export const SuccessfulPasswordReset: React.FC = () => {
   return (
     <div className="flex flex-col">
       <div className="mb-5">
-        <h2 className="leading-[3.6rem] font-bold text-[2.4rem] mb-[1.3rem] text-center">
+        <h2 className="leading-[3.6rem] font-bold text-[2.4rem] mb-[1.3rem] text-center text-brand">
           Password Reset Successful
         </h2>
         <div className="w-[370px]">
-          <p className="text-brand-text text-center font-normal text-[1.4rem] leading-[16.8px]">
+          <p className="text-brand text-center font-normal text-[1.4rem] leading-[16.8px]">
             Congratulations! Your password has been changed. Click continue to
             login.
           </p>
@@ -46,11 +46,11 @@ export function EmailSent({ updateScreen }: Emailprops): React.JSX.Element {
   return (
     <div className="flex flex-col">
       <div className="mb-5">
-        <h2 className="leading-[3.6rem] font-bold text-[2.4rem] mb-[1.3rem] text-center">
+        <h2 className="leading-[3.6rem] font-bold text-[2.4rem] mb-[1.3rem] text-center text-brand">
           Check Your Email
         </h2>
         <div className="w-[350px]">
-          <p className="text-brand-text text-center font-normal text-[1.4rem] leading-[16.8px]">
+          <p className="text-brand text-center font-normal text-[1.4rem] leading-[16.8px]">
             We've sent a password reset link to B***s**@gmail.com. Please check
             your inbox and follow the instructions to reset your password
           </p>
@@ -67,7 +67,7 @@ export function EmailSent({ updateScreen }: Emailprops): React.JSX.Element {
         Continue
       </Button>
       <div className="mt-5 text-center select-none">
-        <span className="text-brand-text text-center font-normal text-[1.4rem] leading-[16.8px]">
+        <span className="text-brand text-center font-normal text-[1.4rem] leading-[16.8px]">
           {" "}
           <span
             className="text-[#ED1C24] cursor-pointer select-none mr-2 active:text-red-700 hover:text-red-700"
@@ -75,7 +75,7 @@ export function EmailSent({ updateScreen }: Emailprops): React.JSX.Element {
           >
             * click here
           </span>
-          <span className="text-brand-text">to resend the email.</span>
+          <span className="text-brand">to resend the email.</span>
         </span>
       </div>
     </div>
