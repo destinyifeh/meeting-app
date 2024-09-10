@@ -75,20 +75,21 @@ export const LoginForm = () => {
               type="email"
               placeholder="Email"
               containerClassName="mb-3"
-              className=" w-full p-4 rounded-lg  h-[4.5rem] placeholder:text-[14px] text-[16px]"
+              className=" w-full p-4 rounded-lg  h-[4.5rem] placeholder:text-[14px] text-brand text-[16px]"
               {...register("email")}
             />
 
             <PasswordInputField
               type="password"
               placeholder="Password"
-              className="w-full p-4 rounded-lg  h-[4.5rem] placeholder:text-[14px] text-[16px]"
+              className="w-full p-4 rounded-lg  h-[4.5rem] placeholder:text-[14px] text-brand text-[16px]"
               {...register("password")}
             />
           </div>
         </div>
 
         <div className="flex items-center justify-between mb-6">
+<<<<<<< HEAD
           <label className="flex items-center text-xl leading-[16.8px] gap-2 font-lato">
             <Checkbox
               checked={isChecked}
@@ -96,6 +97,10 @@ export const LoginForm = () => {
                 setIsChecked(checked);
               }}
             />
+=======
+          <label className="flex items-center text-xl text-brand leading-[16.8px] gap-2">
+            <Checkbox checked={isChecked} />
+>>>>>>> 3202ebdb3ac8f2d7be4b3ce6500b3d7051323170
             Remember me
           </label>
         </div>

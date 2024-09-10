@@ -22,7 +22,7 @@ export const AuthLayout = ({ children }: { children: ReactNode }) => {
           />
         </div>
 
-        <div className="w-0 flex-1 flex flex-col pt-[9.1rem] items-center bg-white">
+        <div className="w-0 flex-1 flex flex-col pt-[9.1rem] items-center bg-white text-brand">
           <div className="mb-[7.8rem]">
             <Link href="/auth/login">
               <Logo />
