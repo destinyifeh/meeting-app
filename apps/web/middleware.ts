@@ -37,6 +37,27 @@ export default async function middleware(req: NextRequest) {
   // Get the pathname of the request (e.g. /, /home)
   const path = url.pathname;
 
+  const res = req.cookies.get("accessToken");
+
+  const rememberMe = req.cookies.get("rememberMe");
+
+  const token = res?.value;
+
+  if (path === "/") {
+    return NextResponse.redirect(new URL("/auth/login", req.url));
+  }
+
+  if (path.startsWith("/auth/login")) {
+    if (token && rememberMe?.value === "yes") {
+      return NextResponse.redirect(new URL(`/app/tenants`, req.url));
+    }
+  }
+
+  if (path.startsWith("/app")) {
+    if (!token) {
+      return NextResponse.redirect(new URL("/auth/login", req.url));
+    }
+  }
   // rewrites for app pages
   if (hostname == `app.${process.env.ROOT_DOMAIN}`) {
     return NextResponse.rewrite(

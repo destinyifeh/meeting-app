@@ -6,15 +6,13 @@ import { Eye, EyeOff } from "lucide-react";
 import { InputField, Inputprops } from "./input";
 
 export const PasswordInputField = forwardRef<HTMLInputElement, Inputprops>(
-  function PasswordInputField(props, ref) {
-    const [visible, setVisible] = useState(false);
+  function PasswordInputFielddd(props, ref) {
+    const [visible, setVisible] = useState<boolean>(true);
+
     return (
       <InputField
-        type={visible ? "text" : "password"}
-        inputMode="email"
-        autoCorrect="off"
-        autoCapitalize="none"
         {...props}
+        type={visible ? "password" : "text"}
         ref={ref}
         suffixIcon={
           visible ? (

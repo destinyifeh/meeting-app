@@ -3,14 +3,56 @@
 import classNames from "classnames";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Fragment, ReactNode } from "react";
+import { cloneElement, Fragment, ReactElement, ReactNode } from "react";
 import { FaClipboardList, FaUserFriends } from "react-icons/fa";
 import { IoMdChatbubbles, IoMdSettings } from "react-icons/io";
 
 import { Logo } from "@vms/ui";
+import { useRouter } from "next/navigation";
 import { IconType } from "react-icons";
+import { UserDropDown } from "./user-dropdown";
 
-const Shell = ({ children }: { children: ReactNode }) => {
+const ADMIN_NAVIGATION: NavigationItemType[] = [
+  {
+    name: "Tenant",
+    href: "/app/tenants",
+    icon: FaUserFriends,
+    isCurrent: ({ pathname }) => {
+      return pathname?.includes("/tenants") ?? false;
+    },
+  },
+  {
+    name: "Audit Log",
+    href: "/app/audit",
+    icon: FaClipboardList,
+
+    isCurrent: ({ pathname }) => {
+      return pathname?.includes("/audit") ?? false;
+    },
+  },
+  {
+    name: "Admin Report",
+    href: "/app/admin",
+    icon: IoMdChatbubbles,
+    isCurrent: ({ pathname }) => {
+      return pathname?.includes("/admin") ?? false;
+    },
+  },
+];
+
+const Shell = ({
+  children,
+  backPath,
+  sidebarContainer,
+  navigation = ADMIN_NAVIGATION,
+}: {
+  children: ReactNode;
+  backPath?: string;
+  sidebarContainer?: ReactElement;
+  navigation?: NavigationItemType[];
+}) => {
+  const router = useRouter();
+
   return (
     <div className="max-h-screen flex flex-col bg-default">
       <div className="bg-white  h-[var(--navigation-height)] px-4 flex items-center rounded-bl-[25px] rounded-br-[25px]">
@@ -21,17 +63,26 @@ const Shell = ({ children }: { children: ReactNode }) => {
         </div>
 
         <div>
-          <div className="h-[5.4rem] font-bold leading-[21px] text-[14px]  bg-emphasis w-[5.4rem] flex justify-center items-center rounded-full">
+          {/* <div className="h-[5.4rem] font-bold leading-[21px] text-[14px]  bg-emphasis w-[5.4rem] flex justify-center items-center rounded-full">
             ST
-          </div>
+          </div> */}
+
+          <UserDropDown />
         </div>
       </div>
 
       <div className=" h-[calc(100vh-var(--navigation-height))] ">
         <div className="flex h-full flex-1 gap-4 p-4 ">
-          <Sidebar />
-          <div className="flex w-0 flex-col flex-1">
-            <MainContainer>{children}</MainContainer>
+          {sidebarContainer ? (
+            cloneElement(sidebarContainer, { isCustom: true })
+          ) : (
+            <Sidebar navigation={navigation} />
+          )}
+
+          <div className="flex w-0 flex-col flex-1 h-full overflow-y-auto vms-scrollbar ">
+            <MainContainer>
+              <div className=" w-[90%] mx-auto h-full ">{children}</div>
+            </MainContainer>
           </div>
         </div>
       </div>
@@ -39,7 +90,7 @@ const Shell = ({ children }: { children: ReactNode }) => {
   );
 };
 
-const getDesktopNavigationItems = () => {
+const getDesktopNavigationItems = (navigation: NavigationItemType[]) => {
   const navigationType = navigation;
   const moreSeparatorIndex = navigationType.findIndex(
     (item) => item.name === MORE_SEPARATOR_NAME
@@ -139,8 +190,8 @@ const NavigationItem: React.FC<{
   );
 };
 
-const Navigation = () => {
-  const { desktopNavigationItems } = getDesktopNavigationItems();
+const Navigation = ({ navigation }: { navigation: NavigationItemType[] }) => {
+  const { desktopNavigationItems } = getDesktopNavigationItems(navigation);
 
   return (
     <nav className=" flex flex-col justify-between h-full lg:px-[2rem] lg:py-[1.5rem]">
@@ -158,12 +209,17 @@ const Navigation = () => {
   );
 };
 
-const Sidebar = () => {
+const Sidebar = ({ navigation }: { navigation: NavigationItemType[] }) => {
   return (
     <div className="relative bg-white rounded-3xl h-full">
       <aside className="border-muted hidden h-full  w-14 flex-col overflow-y-auto overflow-x-hidden border-r md:sticky md:flex lg:w-[25.6rem] lg:px-3">
         <div className="h-full flex flex-col justify-between">
-          <Navigation />
+          {/* <div className="mt-4 flex items-center justify-center">
+            <Link href="/app/dashboard">
+              <Logo />
+            </Link>
+          </div> */}
+          <Navigation navigation={navigation} />
         </div>
       </aside>
     </div>
@@ -203,34 +259,6 @@ export type NavigationItemType = {
 };
 
 const MORE_SEPARATOR_NAME = "more";
-
-const navigation: NavigationItemType[] = [
-  {
-    name: "Tenant",
-    href: "/app/tenants",
-    icon: FaUserFriends,
-    isCurrent: ({ pathname }) => {
-      return pathname?.includes("/tenants") ?? false;
-    },
-  },
-  {
-    name: "Audit Log",
-    href: "/app/audit",
-    icon: FaClipboardList,
-
-    isCurrent: ({ pathname }) => {
-      return pathname?.includes("/audit") ?? false;
-    },
-  },
-  {
-    name: "Admin Report",
-    href: "/app/admin",
-    icon: IoMdChatbubbles,
-    isCurrent: ({ pathname }) => {
-      return pathname?.includes("/admin") ?? false;
-    },
-  },
-];
 
 const bottonNavigation: NavigationItemType[] = [
   {

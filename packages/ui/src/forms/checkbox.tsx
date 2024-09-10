@@ -1,21 +1,9 @@
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 import { Check } from "lucide-react";
-import React from "react";
+import { forwardRef } from "react";
 import { classNames } from "../lib/className";
 
-// export const Checkbox = () => (
-//   <CheckboxPrimitive.Root
-//     id="c1"
-//     className="w-8 h-8 bg-white border-2 border-default flex items-center justify-cente focus:outline-none"
-//     checked={true}
-//   >
-//     <CheckboxPrimitive.Indicator>
-//       <Check className="h-8 w-8 text-white" />
-//     </CheckboxPrimitive.Indicator>
-//   </CheckboxPrimitive.Root>
-// );
-
-export const Checkbox = React.forwardRef<
+export const Checkbox = forwardRef<
   React.ElementRef<typeof CheckboxPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>
 >(({ className, ...props }, ref) => (

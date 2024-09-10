@@ -50,7 +50,7 @@ export const Input = forwardRef<HTMLInputElement, Inputprops>(function Input(
 });
 
 export const InputField = forwardRef<HTMLInputElement, Inputprops>(
-  function InputField(props, ref) {
+  function InputFields(props, ref) {
     const {
       containerClassName,
       labelProps,
@@ -59,8 +59,10 @@ export const InputField = forwardRef<HTMLInputElement, Inputprops>(
       suffixIcon,
       labelClassName,
       label,
+      type,
       ...otherProps
     } = props;
+
     return (
       <div className={classNames("w-full", containerClassName)}>
         {label && <Label {...labelProps}>{label}</Label>}
@@ -70,7 +72,13 @@ export const InputField = forwardRef<HTMLInputElement, Inputprops>(
             {prefixIcon && (
               <Addon className={classNames("border-r-2")}>{prefixIcon}</Addon>
             )}
-            <Input isFullwidth={isFullwidth} {...otherProps} ref={ref} />
+
+            <Input
+              type={props.type}
+              isFullwidth={isFullwidth}
+              {...otherProps}
+              ref={ref}
+            />
             {suffixIcon && (
               <Addon
                 className={classNames("border-l-2  border-none px-7 pr-7")}

@@ -32,6 +32,7 @@ input:-webkit-autofill:focus {
   --vms-bg-error: hsla(3,66%,93%,1);
   --vms-bg-dark-error: hsla(2, 55%, 30%, 1);
   --vms-bg-inverted: #1D1D1F;;
+  --vm-bg-muted-light: #FFF5F6;
 
 
 
@@ -49,6 +50,7 @@ input:-webkit-autofill:focus {
   --vms-brand-light:#ED1C241A;
   --vms-brand-text: #000000;
   --vms-brand-muted:#fde8e9;
+  --vms-brand-muted-light: #FFF5F6;
 
 
 
@@ -92,3 +94,33 @@ a {
     color-scheme: dark;
   }
 }
+
+
+.rc-pagination-item-active {
+  border:none !important
+  
+}
+
+.rc-pagination-item {
+  background-color: transparent !important;
+}
+
+
+@layer utilities {
+  /* Chrome, Safari and Opera */
+  .vms-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .vms-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
+
+
+
+
+
+
+

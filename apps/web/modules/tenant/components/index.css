@@ -1,0 +1,61 @@
+.custom-layout {
+  display:flex;
+  gap: 2rem
+}
+
+/* Custom poiners */
+.custom-layout .react-colorful__saturation-pointer {
+    width: 14px;
+    height: 14px;
+    border: 3px solid #fff;
+    border-radius: 8px;
+  }
+  .custom-layout .react-colorful__hue-pointer {
+    width: 12px;
+    height: 24px;
+    border-radius: 8px;
+  }
+
+
+  .custom-pointers .react-colorful__hue-pointer,
+.custom-pointers .react-colorful__alpha-pointer {
+    width: 12px;
+    height: 24px;
+    border-radius: 8px;
+    writing-mode: vertical-lr;
+    direction: rtl;
+}
+  
+  /* Custom layout */
+  .custom-layout .react-colorful {
+    position: relative;
+    width:100%;
+    height: 336px;
+    display: flex;
+  }
+  
+  .custom-layout .react-colorful__saturation {
+    border-radius: 0;
+    border-bottom: none;
+  }
+  
+  .custom-layout .react-colorful__hue {
+    z-index: 100;
+    display: none;
+  }
+
+  .custom-layout .react-colorful__alpha  {
+    display: none
+  }
+
+  
+  .custom-layout .react-colorful__hue-pointer,
+  .custom-layout .react-colorful__alpha-pointer {
+    width: 20px;
+    height: 20px;
+  }
+
+
+
+
+ 

@@ -11,7 +11,7 @@ export const Login = () => {
         <LoginForm />
         <Link
           href="#"
-          className=" text-brand-text underline hover:text-gray-700 font-normal text-[1.4rem] leading-[16.8px]"
+          className=" text-brand-text underline hover:text-gray-700 font-normal text-[1.4rem] leading-[16.8px] font-lato"
         >
           Forgot your password?
         </Link>

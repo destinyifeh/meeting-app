@@ -1,5 +1,7 @@
-const Tenants = () => {
-  return <div>Tenants</div>;
+import { TenantPage } from "~/tenant";
+
+const Tenant = () => {
+  return <TenantPage />;
 };
 
-export default Tenants;
+export default Tenant;

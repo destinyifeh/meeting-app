@@ -21,6 +21,7 @@ const config: Config = {
         muted: "var(--vms-border-muted)",
         inverted: "var(--vms-bg-inverted)",
         emphasis: "var(--vms-bg-emphasis)",
+        light: "var(--vms-brand-muted-light)",
 
         brand: {
           default: "var(--vms-brand, #ED1C24)",
