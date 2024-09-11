@@ -23,7 +23,7 @@ export default async function middleware(req: NextRequest) {
     const query = req.nextUrl.searchParams.toString();
 
     console.log("current env", process.env.NODE_ENV);
-    console.log("current env", process.env.NEXT_PUBLIC_API_BASE);
+    console.log("api base", process.env.NEXT_PUBLIC_API_BASE);
 
     let currentHost;
     if (process.env.NODE_ENV === "production") {
