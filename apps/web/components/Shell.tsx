@@ -7,7 +7,9 @@ import { cloneElement, Fragment, ReactElement, ReactNode } from "react";
 import { FaClipboardList, FaUserFriends } from "react-icons/fa";
 import { IoMdChatbubbles, IoMdSettings } from "react-icons/io";
 
+import { useBrandColors } from "@lib/hooks/useBrandColor";
 import { Logo } from "@vms/ui";
+import { Params } from "app/_types";
 import { useRouter } from "next/navigation";
 import { IconType } from "react-icons";
 import { UserDropDown } from "./user-dropdown";
@@ -45,18 +47,31 @@ const Shell = ({
   backPath,
   sidebarContainer,
   navigation = ADMIN_NAVIGATION,
+  params,
 }: {
   children: ReactNode;
   backPath?: string;
   sidebarContainer?: ReactElement;
   navigation?: NavigationItemType[];
+  params: Params;
 }) => {
   const router = useRouter();
 
+  const hostname = params?.domain as string;
+  const tenantName = hostname.replace(".localhost:3000", "");
+  useBrandColors({
+    brandColor: !tenantName.startsWith("localhost") ? "#F5D500" : "",
+  });
+
   return (
     <div className="max-h-screen flex flex-col bg-default">
-      <div className="bg-white  h-[var(--navigation-height)] px-4 flex items-center rounded-bl-[25px] rounded-br-[25px]">
-        <div className="mr-auto">
+      <div className="bg-white h-[var(--navigation-height)] px-4 flex items-center rounded-bl-[25px] rounded-br-[25px]">
+        <div
+          className={classNames(
+            "mr-auto",
+            !tenantName.startsWith("localhost") && "invisible"
+          )}
+        >
           <Link href="/app/dashboard">
             <Logo />
           </Link>
@@ -150,7 +165,7 @@ const NavigationItem: React.FC<{
   const isCurrent: NavigationItemType["isCurrent"] =
     item.isCurrent || defaultIsCurrent;
   const current = isCurrent({ isChild: !!isChild, item, pathname });
-
+  const brandColor = "yu";
   return (
     <Fragment>
       <Link
@@ -159,12 +174,12 @@ const NavigationItem: React.FC<{
         aria-label={item.name}
         target={item.target}
         className={classNames(
-          "text-default mb-4 group leading-[2.1rem] flex items-center rounded-md  px-2 py-1.5   lg:px-[1.8rem] lg:py-[1.5rem] text-[1.4rem] h-[4rem] font-medium transition hover:bg-brand-muted  hover:text-brand",
+          "text-default mb-4 group leading-[2.1rem] flex items-center rounded-md  px-2 py-1.5   lg:px-[1.8rem] lg:py-[1.5rem] text-[1.4rem] h-[4rem] font-medium transition hover:bg-brand-subtle  hover:text-black",
           item.child
             ? `[&[aria-current='page']]:!bg-transparent`
-            : `[&[aria-current='page']]:bg-brand-muted`,
+            : `[&[aria-current='page']]:bg-brand-subtle `,
           isChild
-            ? `[&[aria-current='page']]:text-emphasis [&[aria-current='page']]:bg-emphasis hidden h-8 pl-16 lg:flex lg:pl-11 ${
+            ? `[&[aria-current='page']]:bg-brand-subtle hidden h-8 pl-16 lg:flex lg:pl-11 ${
                 props.index === 0 ? "mt-0" : "mt-px"
               }`
             : "[&[aria-current='page']]:text-default mt-0.5"
@@ -173,7 +188,12 @@ const NavigationItem: React.FC<{
       >
         {item.icon && (
           <item.icon
-            className=" mr-2 lg:mr-[2.4rem] h-[2.4rem] w-[2.4rem] flex-shrink-0   [&[aria-current='page']]:text-error"
+            className={classNames(
+              `mr-2 lg:mr-[2.4rem] h-[2.4rem] w-[2.4rem] flex-shrink-0`,
+              brandColor
+                ? "[&[aria-current='page']]:text-brand"
+                : "[&[aria-current='page']]:text-error"
+            )}
             aria-hidden="true"
             aria-current={current ? "page" : undefined}
           />
@@ -211,7 +231,7 @@ const Navigation = ({ navigation }: { navigation: NavigationItemType[] }) => {
 
 const Sidebar = ({ navigation }: { navigation: NavigationItemType[] }) => {
   return (
-    <div className="relative bg-white rounded-3xl h-full">
+    <div className="relative bg-brand-sidebar rounded-3xl h-full">
       <aside className="border-muted hidden h-full  w-14 flex-col overflow-y-auto overflow-x-hidden border-r md:sticky md:flex lg:w-[25.6rem] lg:px-3">
         <div className="h-full flex flex-col justify-between">
           {/* <div className="mt-4 flex items-center justify-center">

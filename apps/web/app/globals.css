@@ -25,6 +25,7 @@ input:-webkit-autofill:focus {
   --vms-border-error:#ED1C24;
   --vms-border-focus: #1D1D1F;
   --vms-border-muted: #EDEDED;
+  --vms-border-brand: #ED1C24;
 
   
   /* background  for component*/
@@ -50,7 +51,10 @@ input:-webkit-autofill:focus {
   --vms-brand-light:#ED1C241A;
   --vms-brand-text: #000000;
   --vms-brand-muted:#fde8e9;
-  --vms-brand-muted-light: #FFF5F6;
+  --vms-brand-muted-light: #FFF5F6; 
+  --vms-brand-accent: #fff;
+  --vms-brand-sidebar: #fff;
+  --vms-brand-subtle: #fde8e9;
 
 
 

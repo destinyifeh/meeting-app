@@ -1,5 +1,7 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { createTenantinInput } from "./api/create-tenant";
 import { CreateTenantStepOne } from "./components/create-tenant-form-step-1";
 import { CreateTenantStepTwo } from "./components/create-tenant-step-2";
 
@@ -7,6 +9,8 @@ export const CreateTenantPage = ({ backPath }: { backPath?: string }) => {
   const router = useRouter();
   const _searchParams = useSearchParams();
   const searchParams = new URLSearchParams(_searchParams.toString());
+
+  const [stepOnePayload, setStepOnePayload] = useState<createTenantinInput>();
 
   return (
     <div>
@@ -27,13 +31,15 @@ export const CreateTenantPage = ({ backPath }: { backPath?: string }) => {
 
       {searchParams.get("step") === "2" && (
         <div>
-          <CreateTenantStepTwo />
+          <CreateTenantStepTwo stepOnePayload={stepOnePayload} />
         </div>
       )}
 
       {searchParams.get("step") === "1" && (
         <div className="w-[37.2rem] mx-auto flex flex-col justify-center items-center mt-[124px]">
-          <CreateTenantStepOne />
+          <CreateTenantStepOne
+            nextHandler={(payload) => setStepOnePayload(payload)}
+          />
         </div>
       )}
     </div>

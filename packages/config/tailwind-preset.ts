@@ -22,12 +22,16 @@ const config: Config = {
         inverted: "var(--vms-bg-inverted)",
         emphasis: "var(--vms-bg-emphasis)",
         light: "var(--vms-brand-muted-light)",
+        error: "var( --vms-bg-dark-error)",
 
         brand: {
           default: "var(--vms-brand, #ED1C24)",
-          emphasis: "var(--vms-brand-emphasis,#101010)",
+          emphasis: "var(--vms-brand-emphasis,#fff)",
           light: "var(--vms-brand-light, #ED1C24)",
           muted: "var(--vms-brand-muted)",
+          accent: "var(--vms-brand-accent, #fff)",
+          sidebar: "var(--vms-brand-sidebar, #fff)",
+          subtle: "var(--vms-brand-subtle, #fde8e9)",
         },
       },
 
@@ -37,6 +41,7 @@ const config: Config = {
         default: "var(--vms-border)",
         muted: "var(--vms-border-muted)",
         focus: "var(--vms-border-focus)",
+        brand: "var(--vms-border-brand)",
       },
 
       textColor: {

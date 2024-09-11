@@ -5,7 +5,7 @@ export const Login = () => {
   return (
     <div className="flex w-[32rem] flex-col items-center justify-center">
       <div>
-        <h2 className="leading-[3.6rem] font-bold text-[2.4rem] mb-[1.3rem] text-brand">
+        <h2 className="leading-[3.6rem] font-bold text-[2.4rem] mb-[1.3rem] text-black">
           Welcome back! Log in to access your Super Admin Dashboard
         </h2>
         <LoginForm />

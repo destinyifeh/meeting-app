@@ -11,4 +11,9 @@ export type PageProps = {
   searchParams: SearchParams;
 };
 
+export type TenantProps = {
+  primaryColor: string;
+  logo: string;
+};
+
 export type LayoutProps = { params: Params; children: React.ReactElement };
