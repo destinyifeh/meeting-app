@@ -41,6 +41,7 @@ export const LoginForm = () => {
   const { register, handleSubmit, formState } = methods;
 
   const onSuccess = (response: ServerResponse) => {
+    console.log("login response", response);
     const { exp } = jwtDecode(response.data.accessToken);
 
     if (isChecked) {
