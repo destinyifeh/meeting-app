@@ -1,0 +1,11 @@
+@import "@radix-ui/colors/black-alpha.css";
+@import "@radix-ui/colors/green.css";
+@import "@radix-ui/colors/mauve.css";
+@import "@radix-ui/colors/violet.css";
+
+.DialogOverlay {
+  background-color: var(--black-a9);
+  position: fixed;
+  inset: 0;
+  animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}

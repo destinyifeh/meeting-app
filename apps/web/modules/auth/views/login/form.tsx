@@ -89,18 +89,8 @@ export const LoginForm = () => {
         </div>
 
         <div className="flex items-center justify-between mb-6">
-<<<<<<< HEAD
-          <label className="flex items-center text-xl leading-[16.8px] gap-2 font-lato">
-            <Checkbox
-              checked={isChecked}
-              onCheckedChange={(checked) => {
-                setIsChecked(checked);
-              }}
-            />
-=======
           <label className="flex items-center text-xl text-brand leading-[16.8px] gap-2">
             <Checkbox checked={isChecked} />
->>>>>>> 3202ebdb3ac8f2d7be4b3ce6500b3d7051323170
             Remember me
           </label>
         </div>
