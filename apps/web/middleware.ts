@@ -24,6 +24,7 @@ export default async function middleware(req: NextRequest) {
 
     console.log("current env", process.env.NODE_ENV);
     console.log("api base", process.env.NEXT_PUBLIC_API_BASE);
+    console.log("roo domain", process.env.NEXT_PUBLIC_ROOT_DOMAIN);
 
     let currentHost;
     if (process.env.NODE_ENV === "production") {
@@ -47,6 +48,8 @@ export default async function middleware(req: NextRequest) {
     const rememberMe = req.cookies.get("rememberMe");
 
     const token = res?.value;
+
+    console.log("currentHost", currentHost);
 
     if (path === "/") {
       return NextResponse.redirect(new URL("/auth/login", req.url));
