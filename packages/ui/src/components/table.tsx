@@ -60,7 +60,7 @@ export const Table = <Entry extends { id: string }>({
           <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
             <div className="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
               <table className="min-w-full divide-y divide-gray-200 ">
-                <thead className="bg-light">
+                <thead className="bg-brand-emphasis">
                   <tr>
                     {rowSelection && (
                       <th className="px-5">
@@ -82,7 +82,7 @@ export const Table = <Entry extends { id: string }>({
                   {data.map((entry, entryIndex) => (
                     <tr
                       key={entry?.id || entryIndex}
-                      className="odd:bg-white even:bg-light"
+                      className="odd:bg-white even:bg-brand-emphasis"
                     >
                       {rowSelection && (
                         <td className=" px-5 py-7 flex shrink-0 flex-1 items-center justify-center ">
@@ -145,7 +145,7 @@ const PaginatedTable = ({ totalItems }: { totalItems: number }) => {
   const endItem = Math.min(currentPage * pageSize, totalItems);
 
   return (
-    <div className="flex items-center justify-between bg-light px-[2rem] py-[1.3rem]">
+    <div className="flex items-center justify-between bg-brand-emphasis px-[2rem] py-[1.3rem]">
       <div className="text-gray-600">
         {startItem}-{endItem} of {totalItems}
       </div>

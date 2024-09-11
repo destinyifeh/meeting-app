@@ -2,9 +2,14 @@
 import { Button, Table } from "@vms/ui";
 import { useRouter } from "next/navigation";
 import { FaRegUser } from "react-icons/fa6";
+import { useGetContact } from "./api/get-tenants";
 
 export const TenantPage = ({ backPath }: { backPath?: string }) => {
   const router = useRouter();
+
+  const tenants = useGetContact({
+    filter: { PageNumber: "1", PageSize: "10" },
+  });
 
   return (
     <div>
@@ -25,14 +30,14 @@ export const TenantPage = ({ backPath }: { backPath?: string }) => {
         </h3>
       </div>
 
-      <div className="bg-light">
+      <div className="bg-brand-emphasis">
         <div className="flex  py-4 mb-[16px] items-center justify-center gap-12">
           <h3 className="text-[2rem] leading-[3rem] text-default font-semibold">
             Tenant
           </h3>
           <Button
             href="tenants/create?step=1"
-            className="w-[26.6rem] h-[5.6rem] justify-start leading-[2.4rem] font-normal font-lato text-[2rem]"
+            className="w-[26.6rem] border-brand-default text-brand h-[5.6rem] justify-start leading-[2.4rem] font-normal font-lato text-[2rem]"
             prefixIcon={<FaRegUser className="h-2.4rem[] w-[2.4rem]" />}
             variant="danger"
             size="large"

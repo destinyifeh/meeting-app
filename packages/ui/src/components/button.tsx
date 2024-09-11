@@ -23,15 +23,15 @@ const buttonClasses = cva(
     variants: {
       variant: {
         primary:
-          "border-black bg-black text-white hover:bg-gray-800 hover:ring-4 hover:ring-gray-200",
+          "border-black bg-black text-brand hover:bg-gray-800 hover:ring-4 hover:ring-gray-200",
         secondary:
           "border-muted bg-muted text-muted hover:bg-default focus-visible:border-default outline-none",
         outline:
           "border-transparent text-gray-500 duration-75 hover:bg-gray-100",
         success:
-          "border-success bg-success text-white hover:bg-success hover:ring-4 hover:ring-success",
+          "border-success bg-success text-brand hover:bg-success hover:ring-4 hover:ring-success",
         danger:
-          "border-red-500 bg-brand-default text-white hover:bg-red-600 hover:ring-4 hover:ring-red-100",
+          "border-brand-default bg-brand-default text-brand hover:bg-brand hover:ring-4 hover:ring-red-100",
         "danger-outline":
           "border-error bg-white text-red-500 hover:bg-brand-default hover:text-white",
       },

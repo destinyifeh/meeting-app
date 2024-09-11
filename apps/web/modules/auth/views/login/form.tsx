@@ -1,6 +1,12 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Checkbox, InputField, PasswordInputField } from "@vms/ui";
+import {
+  Button,
+  Checkbox,
+  InputField,
+  PasswordInputField,
+  showToast,
+} from "@vms/ui";
 import classNames from "classnames";
 import { jwtDecode } from "jwt-decode";
 
@@ -46,21 +52,21 @@ export const LoginForm = () => {
     document.cookie = `accessToken=${response.data.accessToken};path=/;max-age=${exp};SameSite=Lax;`;
 
     router.replace(redirectTo ? redirectTo : "/app/tenants");
+
+    showToast("Logged in successfull", "success");
   };
 
   const login = useLogin({
     onSuccess,
   });
 
-  const onSubmit = async (data: FormValue) => {
+  const onSubmit = (data: FormValue) => {
     const payload = {
       email: data.email,
       password: data.password,
     };
 
-    if (isChecked) {
-    }
-    await login.mutate(payload);
+    login.mutate(payload);
   };
 
   return (
@@ -75,22 +81,27 @@ export const LoginForm = () => {
               type="email"
               placeholder="Email"
               containerClassName="mb-3"
-              className=" w-full p-4 rounded-lg  h-[4.5rem] placeholder:text-[14px] text-brand text-[16px]"
+              className=" w-full p-4 rounded-lg  h-[4.5rem] placeholder:text-[14px] text-black text-[16px]"
               {...register("email")}
             />
 
             <PasswordInputField
               type="password"
               placeholder="Password"
-              className="w-full p-4 rounded-lg  h-[4.5rem] placeholder:text-[14px] text-brand text-[16px]"
+              className="w-full p-4 rounded-lg  h-[4.5rem] placeholder:text-[14px] text-black text-[16px]"
               {...register("password")}
             />
           </div>
         </div>
 
         <div className="flex items-center justify-between mb-6">
-          <label className="flex items-center text-xl text-brand leading-[16.8px] gap-2">
-            <Checkbox checked={isChecked} />
+          <label className="flex  text-black items-center text-xl leading-[16.8px] gap-2 font-lato">
+            <Checkbox
+              checked={isChecked}
+              onCheckedChange={(checked) => {
+                setIsChecked(checked);
+              }}
+            />
             Remember me
           </label>
         </div>
@@ -109,7 +120,7 @@ export const LoginForm = () => {
           disabled={login.isPending}
           className={classNames(
             formState.isValid
-              ? "bg-brand-default text-white hover:bg-brand-default"
+              ? "bg-brand-default text-brand hover:bg-brand-default"
               : "cursor-not-allowed",
             "w-full",
             login.isPending && "opacity-60"
