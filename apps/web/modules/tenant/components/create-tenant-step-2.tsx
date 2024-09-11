@@ -38,8 +38,8 @@ export const CreateTenantStepTwo = ({
     onSuccess: () => router.replace("/app/tenants"),
   });
 
-  const logo = formMethods.watch("logo");
-  const primaryColor = formMethods.watch("primaryColor");
+  const logo = formMethods.watch("Logo");
+  const primaryColor = formMethods.watch("PrimaryColour");
 
   const onSubmit = async () => {
     const stepTwoReq = formMethods.getValues();
@@ -87,7 +87,7 @@ export const CreateTenantStepTwo = ({
                   readFile
                   onChange={({ src, file }) => {
                     setImage(src);
-                    formMethods.setValue("logo", file, {
+                    formMethods.setValue("Logo", file, {
                       shouldValidate: true,
                       shouldDirty: true,
                       shouldTouch: true,
@@ -180,7 +180,7 @@ const ColorPickerComponent = () => {
       l: newColor.l,
     }));
 
-    setValue("primaryColor", hslaToHex(newColor.h, newColor.s, newColor.l), {
+    setValue("PrimaryColour", hslaToHex(newColor.h, newColor.s, newColor.l), {
       shouldValidate: true,
       shouldDirty: true,
       shouldTouch: true,

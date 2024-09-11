@@ -8,9 +8,9 @@ import { makeQueryClient } from "@lib/tanstack-provider";
 import { showToast } from "@vms/ui";
 
 export const CreateTenantInputSchema = z.object({
-  email: z.string().min(1, "Required").email("Invalid email"),
-  name: z.string().min(3, "Required"),
-  description: z.string(),
+  Email: z.string().min(1, "Required").email("Invalid email"),
+  Name: z.string().min(3, "Required"),
+  Description: z.string(),
 });
 
 export type createTenantLogoInput = z.infer<typeof CreateTenantLogSchema>;
@@ -18,12 +18,12 @@ export type createTenantLogoInput = z.infer<typeof CreateTenantLogSchema>;
 export type createTenantinInput = z.infer<typeof CreateTenantInputSchema>;
 
 export const CreateTenantLogSchema = z.object({
-  primaryColor: z.string().min(1, "Required"),
-  logo: z.instanceof(File),
+  PrimaryColour: z.string().min(1, "Required"),
+  Logo: z.instanceof(File),
 });
 
 export type CreateTenantType = createTenantLogoInput &
-  createTenantinInput & { secondaryColor: string };
+  createTenantinInput & { SecondaryColour: string };
 
 type ServerResponse = {
   data: TenantResponse;
@@ -36,7 +36,7 @@ export type TenantResponse = {
 export const createTenantFn = (data: CreateTenantType) => {
   const token = getCookie("accessToken");
 
-  data["secondaryColor"] = data.primaryColor;
+  data["SecondaryColour"] = data.PrimaryColour;
 
   const formData = new FormData();
 
