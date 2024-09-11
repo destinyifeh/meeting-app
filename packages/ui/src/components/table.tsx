@@ -128,7 +128,7 @@ export const Table = <Entry extends { id: string }>({
   );
 };
 
-const PaginatedTable = ({ totalItems }: { totalItems: number }) => {
+export const PaginatedTable = ({ totalItems }: { totalItems: number }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
 
@@ -213,5 +213,3 @@ const PaginatedTable = ({ totalItems }: { totalItems: number }) => {
     </div>
   );
 };
-
-export default PaginatedTable;
