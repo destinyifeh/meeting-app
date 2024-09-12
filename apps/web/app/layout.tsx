@@ -35,7 +35,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${poppins.variable} ${lato.variable}`}>
-      <body className="bg-subtle font-sans antialiased text-base">
+      <body className="bg-subtle font-sans antialiased text-base text-black">
         <AppProvider>{children}</AppProvider>
       </body>
     </html>

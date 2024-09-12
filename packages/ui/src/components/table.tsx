@@ -4,6 +4,7 @@ import Pagination from "rc-pagination";
 import { ReactNode, useRef, useState } from "react";
 import { CiFilter } from "react-icons/ci";
 
+import classNames from "classnames";
 import "rc-pagination/assets/index.css";
 
 type TableColumn<Entry> = {
@@ -16,12 +17,14 @@ export type TableProps<Entry> = {
   data: Entry[];
   columns: TableColumn<Entry>[];
   rowSelection?: (row: Entry[]) => void;
+  isLoading?: boolean;
 };
 
-export const Table = <Entry extends { id: string }>({
+export const Table = <Entry extends { idx: string; id: string }>({
   data,
   columns,
   rowSelection,
+  isLoading,
 }: TableProps<Entry>) => {
   const checbockRefs = useRef<HTMLInputElement[]>([]);
   const itemsRef = useRef(new Map<string, HTMLInputElement>());
@@ -31,13 +34,14 @@ export const Table = <Entry extends { id: string }>({
       value.checked = e.target.checked;
     }
   };
-  if (!data?.length) {
-    return (
-      <div className="flex flex-col items-center justify-center text-gray-500 bg-white h-80">
-        <h4>No Entries Found</h4>
-      </div>
-    );
-  }
+
+  // if (!data?.length && !isLoading) {
+  //   return (
+  //     <div className="flex flex-col items-center  text-[18px] justify-center text-gray-500 bg-white h-80">
+  //       <h4>No Entries Found</h4>
+  //     </div>
+  //   );
+  // }
 
   function getMap() {
     if (!checbockRefs.current) {
@@ -57,8 +61,14 @@ export const Table = <Entry extends { id: string }>({
 
       <div className="flex flex-col">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-            <div className="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
+          <div
+            className={classNames(
+              "inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8 ",
+              isLoading && "h-[400px]",
+              !isLoading && !data.length && "h-[400px]"
+            )}
+          >
+            <div className="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg h-full">
               <table className="min-w-full divide-y divide-gray-200 ">
                 <thead className="bg-brand-emphasis">
                   <tr>
@@ -78,48 +88,84 @@ export const Table = <Entry extends { id: string }>({
                     ))}
                   </tr>
                 </thead>
-                <tbody>
-                  {data.map((entry, entryIndex) => (
-                    <tr
-                      key={entry?.id || entryIndex}
-                      className="odd:bg-white even:bg-brand-emphasis"
-                    >
-                      {rowSelection && (
-                        <td className=" px-5 py-7 flex shrink-0 flex-1 items-center justify-center ">
-                          <input
-                            type="checkbox"
-                            ref={(node) => {
-                              const map = getMap();
-
-                              if (node) {
-                                map?.set(`${entryIndex}`, node);
-                              } else {
-                                map?.delete(`${entryIndex}`);
-                              }
-                            }}
-                            data-value={entryIndex}
-                            // onChange={(e) => onChange(e, entryIndex)}
-                          />
-                        </td>
-                      )}
-                      {columns.map(({ Cell, field, title }, columnIndex) => (
+                <tbody className="relative min-h-[30rem] w-full">
+                  {/* {!isLoading && !data.length ? (
+                    <div className="absolute w-full left-0 h-[300px] p-8">
+                      <h4 className="animate-pulse relative h-14 block bg-gray-300 s mb-4 w-full">
+                        No entery
+                      </h4>
+                    </div>
+                  ) : null} */}
+                  {isLoading && (
+                    <tr className="absolute w-full left-0 h-[300px] p-8">
+                      {[1, 2, 3, 4, 5, 9, 11, 12].map((item) => (
                         <td
-                          key={title + columnIndex}
-                          className="px-6 py-7 text-[16px] leading-[19.2px] font-lato font-normal  text-default whitespace-nowrap"
-                        >
-                          {Cell ? (
-                            <Cell entry={entry} />
-                          ) : (
-                            (entry[field] as ReactNode)
-                          )}
-                        </td>
+                          className="animate-pulse relative h-14 block bg-gray-300 s mb-4 w-full"
+                          key={item}
+                        ></td>
                       ))}
                     </tr>
-                  ))}
+                  )}
+
+                  {!isLoading && data.length > 0 ? (
+                    data.map((entry, entryIndex) => {
+                      return (
+                        <tr
+                          key={entry?.id || entryIndex}
+                          className="odd:bg-white even:bg-brand-emphasis"
+                        >
+                          {rowSelection && (
+                            <td className=" px-5 py-7 flex shrink-0 flex-1 items-center justify-center ">
+                              <input
+                                type="checkbox"
+                                ref={(node) => {
+                                  const map = getMap();
+
+                                  if (node) {
+                                    map?.set(`${entryIndex}`, node);
+                                  } else {
+                                    map?.delete(`${entryIndex}`);
+                                  }
+                                }}
+                                data-value={entryIndex}
+                                // onChange={(e) => onChange(e, entryIndex)}
+                              />
+                            </td>
+                          )}
+                          {columns.map(
+                            ({ Cell, field, title }, columnIndex) => (
+                              <td
+                                key={title + columnIndex}
+                                className="px-6 py-7 text-[16px] leading-[19.2px] font-lato font-normal  text-default whitespace-nowrap"
+                              >
+                                {Cell ? (
+                                  <Cell entry={entry} />
+                                ) : (
+                                  (entry[field] as ReactNode)
+                                )}
+                              </td>
+                            )
+                          )}
+                        </tr>
+                      );
+                    })
+                  ) : (
+                    <>
+                      {!isLoading && (
+                        <div className=" left-0 w-full absolute p-8 text-center flex flex-col items-center  text-[18px] justify-center text-gray-500 h-80">
+                          <div className="h-14 block mb-4 w-full">
+                            No Entries Found
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  )}
                 </tbody>
               </table>
 
-              <PaginatedTable totalItems={10} />
+              {!isLoading && data.length ? (
+                <PaginatedTable totalItems={10} />
+              ) : null}
             </div>
           </div>
         </div>

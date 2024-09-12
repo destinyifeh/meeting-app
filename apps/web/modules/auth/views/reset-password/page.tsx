@@ -8,7 +8,7 @@ import { SuperAdminForgotPasswordForm } from "./forms/forgot-form";
 import { SuperAdminResetForgotPasswordForm } from "./forms/reset-form";
 
 export const ResetPasswordPage = () => {
-  const [currentScreen, setCurrentScreen] = useState("forgotPassword");
+  const [currentScreen, setCurrentScreen] = useState("resetPassword");
 
   const updateScreen = (screen: string) => {
     setCurrentScreen(screen);

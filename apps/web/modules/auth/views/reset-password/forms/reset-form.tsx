@@ -1,5 +1,6 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { passwordValidator } from "@vms/lib";
 import { Button, PasswordInputField } from "@vms/ui";
 import Link from "next/link";
 import React from "react";
@@ -14,16 +15,23 @@ const schema = z
   .object({
     password: z
       .string()
-      .min(6, "Password must be at least 6 characters long")
-      .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
-      .regex(/[a-z]/, "Password must contain at least one lowercase letter")
-      .regex(/[0-9]/, "Password must contain at least one number"),
-    confirmPassword: z
-      .string()
-      .min(6, "Confirm Password must be at least 6 characters long"),
-    // .regex(/[A-Z]/, 'Confirm Password must contain at least one uppercase letter')
-    // .regex(/[a-z]/, 'Confirm Password must contain at least one lowercase letter')
-    // .regex(/[0-9]/, 'Confirm Password must contain at least one number')
+      .trim()
+      .superRefine((password, ctx) => {
+        const passwordTestResult = passwordValidator(password);
+        Object.keys(passwordTestResult).map((rule) => {
+          const ruleCtx =
+            passwordTestResult[rule as keyof typeof passwordTestResult];
+          if (!ruleCtx.validator) {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              message: ruleCtx?.message,
+              path: [rule],
+            });
+          }
+        });
+      }),
+
+    confirmPassword: z.string().min(1, "Confirm password is required."),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
@@ -65,10 +73,10 @@ export const SuperAdminResetForgotPasswordForm = ({
     <FormProvider {...methods}>
       <form className="flex flex-col " onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-5">
-          <h2 className="leading-[3.6rem] font-bold text-[2.4rem] mb-[1.3rem] text-center">
+          <h2 className="leading-[3.6rem]  text-black font-bold text-[2.4rem] mb-[1.3rem] text-center">
             Set a new password
           </h2>
-          <p className="text-brand text-center font-normal text-[1.4rem] leading-[16.8px]">
+          <p className="text-black text-center font-normal text-[1.4rem] leading-[16.8px]">
             Create a new password. Ensure it differs from previous ones for
             security
           </p>
@@ -102,12 +110,12 @@ export const SuperAdminResetForgotPasswordForm = ({
         </Button>
 
         <div className="mt-5 text-center">
-          <span className="text-brand text-center font-normal text-[1.4rem] leading-[16.8px]">
+          <span className="text-black text-center font-normal text-[1.4rem] leading-[16.8px]">
             {" "}
             <Link href="/auth/login" className="text-[#ED1C24]">
               * click here{" "}
             </Link>
-            <span className="text-brand">to go back to sign in page.</span>
+            <span className="text-black">to go back to sign in page.</span>
           </span>
         </div>
       </form>

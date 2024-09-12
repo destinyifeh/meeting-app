@@ -41,7 +41,7 @@ export const Input = forwardRef<HTMLInputElement, Inputprops>(function Input(
       {...props}
       ref={ref}
       className={classNames(
-        "placeholder:text-[14px] overflow-hidden  mt-0 text-[1.6rem] bg-white block   rounded-md px-3 py-2 outline-none  focus:outline-none",
+        "placeholder:text-[14px] overflow-hidden  mt-0 text-[1.6rem] bg-white block text-black   rounded-md px-3 py-2 outline-none  focus:outline-none",
         isFullwidth && "w-full",
         props.className
       )}

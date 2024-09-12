@@ -31,6 +31,8 @@ export type LoginResponse = {
   accessToken: string;
   userId: string;
   userName: string;
+  otp?: string;
+  role: string;
 };
 
 export const useLogin = (
