@@ -81,9 +81,9 @@ const Shell = ({
 }) => {
   const router = useRouter();
   const { checkAccess } = useAuthorization();
-  const roleNavigation = checkAccess({ allowedRoles: [ROLES.SUPERADMIN] });
+  // const roleNavigation = checkAccess({ allowedRoles: [role] });
 
-  navigation = roleNavigation ? ADMIN_NAVIGATION : TENANT_NAVIGATION;
+  navigation = role === ROLES.SUPERADMIN ? ADMIN_NAVIGATION : TENANT_NAVIGATION;
 
   const hostname = params?.domain as string;
   const tenantName = hostname.replace(

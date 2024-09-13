@@ -15,7 +15,7 @@ export const useAuthorization = () => {
   const userRole = useContext(RoleContext);
 
   const checkAccess = ({ allowedRoles }: { allowedRoles: ROLES[] }) => {
-    if (allowedRoles && allowedRoles.length > 0 && user) {
+    if (allowedRoles && allowedRoles.length > 0 && userRole) {
       return allowedRoles.includes(userRole?.role as ROLES);
     }
 
