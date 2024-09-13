@@ -17,23 +17,34 @@ export const AuthLayout = ({
   tenant?: TenantProps;
 }) => {
   const hostname = params?.domain as string;
-  const tenantName = hostname.replace(".localhost:3000", "");
+  const tenantName = hostname.replace(
+    `.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`,
+    ""
+  );
   useBrandColors({
-    brandColor: !tenantName.startsWith("localhost") ? tenant?.primaryColor : "",
+    brandColor: "",
   });
   return (
     <div className="h-screen w-screen relative">
       <div className="w-full h-full flex ">
-        <div className=" relative h-full  flex-col flex w-[64rem] shrink-0">
+        <div className="relative h-full hidden md:sticky  flex-col md:flex md:min-w-[64rem] xl:min-w-[40vw] ">
           <Image
             alt="vms-auth-landing"
             src={"/vmsland.webp"}
-            fill
-            style={{
-              objectFit: "fill",
-              height: "100%",
-            }}
+            // style={{
+            //   position: "absolute",
+            //   left: 0,
+            //   top: 0,
+            //   width: "100%",
+            //   height: "100%",
+            //   objectFit: "cover",
+            // }}
             priority
+            fill
+            sizes="(min-width: 808px) 50vw, 100vw"
+            style={{
+              objectFit: "cover", // cover, contain, none
+            }}
           />
         </div>
 

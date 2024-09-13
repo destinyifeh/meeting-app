@@ -1,7 +1,7 @@
 "use client";
 
 import Pagination from "rc-pagination";
-import { ReactNode, useRef, useState } from "react";
+import { ReactNode, useRef } from "react";
 import { CiFilter } from "react-icons/ci";
 
 import classNames from "classnames";
@@ -18,6 +18,11 @@ export type TableProps<Entry> = {
   columns: TableColumn<Entry>[];
   rowSelection?: (row: Entry[]) => void;
   isLoading?: boolean;
+  totalItems?: number;
+  currentPage?: number;
+  pageSize?: number;
+  onPageChange: (size: number) => void;
+  onPageSizeChange: (size: number) => void;
 };
 
 export const Table = <Entry extends { idx: string; id: string }>({
@@ -25,6 +30,11 @@ export const Table = <Entry extends { idx: string; id: string }>({
   columns,
   rowSelection,
   isLoading,
+  pageSize,
+  currentPage,
+  totalItems,
+  onPageChange,
+  onPageSizeChange,
 }: TableProps<Entry>) => {
   const checbockRefs = useRef<HTMLInputElement[]>([]);
   const itemsRef = useRef(new Map<string, HTMLInputElement>());
@@ -164,7 +174,13 @@ export const Table = <Entry extends { idx: string; id: string }>({
               </table>
 
               {!isLoading && data.length ? (
-                <PaginatedTable totalItems={10} />
+                <PaginatedTable
+                  totalItems={totalItems}
+                  currentPage={currentPage}
+                  pageSize={pageSize}
+                  onPageChange={onPageChange}
+                  onPageSizeChange={onPageSizeChange}
+                />
               ) : null}
             </div>
           </div>
@@ -174,17 +190,32 @@ export const Table = <Entry extends { idx: string; id: string }>({
   );
 };
 
-export const PaginatedTable = ({ totalItems }: { totalItems: number }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+export const PaginatedTable = ({
+  totalItems = 10,
+  currentPage = 1,
+  pageSize = 10,
+  onPageChange,
+  onPageSizeChange,
+}: {
+  totalItems?: number;
+  currentPage?: number;
+  pageSize?: number;
+  onPageChange: (size: number) => void;
+  onPageSizeChange: (size: number) => void;
+}) => {
+  const onPageChangeHandler = (page: number) => {
+    // setCurrentPage(page);
 
-  const onPageChange = (page: number) => {
-    setCurrentPage(page);
+    onPageChange(page);
   };
 
-  const onPageSizeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setPageSize(Number(event.target.value));
-    setCurrentPage(1); // Reset to the first page when page size changes
+  const onPageSizeChangeHandler = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    // setPageSize(Number(event.target.value));
+    // setCurrentPage(1); // Reset to the first page when page size changes
+    onPageSizeChange(Number(event.target.value));
+    onPageChange(1);
   };
 
   const startItem = (currentPage - 1) * pageSize + 1;
@@ -200,7 +231,7 @@ export const PaginatedTable = ({ totalItems }: { totalItems: number }) => {
           <span className="text-gray-600">Rows per page:</span>
           <select
             value={pageSize}
-            onChange={onPageSizeChange}
+            onChange={onPageSizeChangeHandler}
             className="border border-gray-300 rounded-md text-gray-600"
           >
             <option value={5}>5</option>
@@ -213,7 +244,7 @@ export const PaginatedTable = ({ totalItems }: { totalItems: number }) => {
           current={currentPage}
           total={totalItems}
           pageSize={pageSize}
-          onChange={onPageChange}
+          onChange={onPageChangeHandler}
           showSizeChanger={true}
           className="flex items-center  space-x-2 justify-center "
           itemRender={(current, type, element) => {

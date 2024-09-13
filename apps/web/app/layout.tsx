@@ -35,6 +35,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${poppins.variable} ${lato.variable}`}>
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+      ></meta>
       <body className="bg-subtle font-sans antialiased text-base text-black">
         <AppProvider>{children}</AppProvider>
       </body>

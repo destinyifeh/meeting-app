@@ -18,7 +18,7 @@ export type TenantProps = {
 
 export type ErrorMessageProps = {
   message: string;
-  code: string;
+  code?: string;
 };
 
 export type PagedResponse<T> = {
@@ -31,8 +31,8 @@ export type PagedResponse<T> = {
 };
 
 export type ServerResponse<T> = {
-  data: T;
-  error: unknown;
+  data?: T;
+  error?: ErrorMessageProps;
   message: string;
 };
 

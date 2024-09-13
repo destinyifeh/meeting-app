@@ -1,3 +1,4 @@
+import { ROLES } from "@lib/hooks/useAuthorization";
 import { NextRequest, NextResponse } from "next/server";
 
 export const config = {
@@ -22,10 +23,6 @@ export default async function middleware(req: NextRequest) {
     const hostname = req.headers.get("host");
     const query = req.nextUrl.searchParams.toString();
 
-    console.log("current env", process.env.NODE_ENV);
-    console.log("api base", process.env.NEXT_PUBLIC_API_BASE);
-    console.log("roo domain", process.env.NEXT_PUBLIC_ROOT_DOMAIN);
-
     let currentHost;
     if (process.env.NODE_ENV === "production") {
       currentHost = hostname?.replace(
@@ -46,10 +43,9 @@ export default async function middleware(req: NextRequest) {
     const res = req.cookies.get("accessToken");
 
     const rememberMe = req.cookies.get("rememberMe");
+    const role = req.cookies.get("role");
 
     const token = res?.value;
-
-    console.log("currentHost", currentHost);
 
     if (path === "/") {
       return NextResponse.redirect(new URL("/auth/login", req.url));
@@ -57,7 +53,10 @@ export default async function middleware(req: NextRequest) {
 
     if (path.startsWith("/auth/login")) {
       if (token && rememberMe?.value === "yes") {
-        return NextResponse.redirect(new URL(`/app/tenants`, req.url));
+        console.log("roleee", role?.value);
+        const redirectTo =
+          role?.value === ROLES.SUPERADMIN ? "/app/tenants" : "/app/dashboard";
+        return NextResponse.redirect(new URL(redirectTo, req.url));
       }
     }
 

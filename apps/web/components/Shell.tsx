@@ -6,7 +6,9 @@ import { usePathname } from "next/navigation";
 import { cloneElement, Fragment, ReactElement, ReactNode } from "react";
 import { FaClipboardList, FaUserFriends } from "react-icons/fa";
 import { IoMdChatbubbles, IoMdSettings } from "react-icons/io";
+import { MdDashboard } from "react-icons/md";
 
+import { ROLES, useAuthorization } from "@lib/hooks/useAuthorization";
 import { useBrandColors } from "@lib/hooks/useBrandColor";
 import { Logo } from "@vms/ui";
 import { Params } from "app/_types";
@@ -42,25 +44,54 @@ const ADMIN_NAVIGATION: NavigationItemType[] = [
   },
 ];
 
+const TENANT_NAVIGATION: NavigationItemType[] = [
+  {
+    name: "Dashboard",
+    href: "/app/dashboard",
+    icon: MdDashboard,
+    isCurrent: ({ pathname }) => {
+      return pathname?.includes("/dashboard") ?? false;
+    },
+  },
+  {
+    name: "Notification",
+    href: "/app/notification",
+    icon: FaClipboardList,
+
+    isCurrent: ({ pathname }) => {
+      return pathname?.includes("/notification") ?? false;
+    },
+  },
+];
+
 const Shell = ({
   children,
   backPath,
   sidebarContainer,
   navigation = ADMIN_NAVIGATION,
   params,
+  role,
 }: {
   children: ReactNode;
   backPath?: string;
   sidebarContainer?: ReactElement;
   navigation?: NavigationItemType[];
   params: Params;
+  role: ROLES;
 }) => {
   const router = useRouter();
+  const { checkAccess } = useAuthorization();
+  const roleNavigation = checkAccess({ allowedRoles: [ROLES.SUPERADMIN] });
+
+  navigation = roleNavigation ? ADMIN_NAVIGATION : TENANT_NAVIGATION;
 
   const hostname = params?.domain as string;
-  const tenantName = hostname.replace(".localhost:3000", "");
+  const tenantName = hostname.replace(
+    `.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`,
+    ""
+  );
   useBrandColors({
-    brandColor: !tenantName.startsWith("localhost") ? "#F5D500" : "",
+    brandColor: "",
   });
 
   return (

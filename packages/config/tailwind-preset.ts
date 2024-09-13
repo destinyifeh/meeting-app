@@ -51,6 +51,7 @@ const config: Config = {
         brand: "var(--vms-brand-text)",
         muted: "var(--vms-text-muted)",
         subtle: "var(--vms-text-subtle)",
+        solid: "var(--vms-brand-solid-text)",
       },
       fontFamily: {
         sans: [

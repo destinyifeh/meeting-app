@@ -41,6 +41,7 @@ input:-webkit-autofill:focus {
   --vms-text: #000000;
   --vms-text-success: hsla(133, 34%, 24%, 1); 
   --vms-text-error: #ED1C24;
+  --vms-brand-solid-text: #ED1C24;
   --vms-text-muted: #9C9C9C;
   --vms-bg-subtle: #9C9C9C;
 

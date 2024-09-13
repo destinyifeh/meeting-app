@@ -20,7 +20,7 @@ export const getTenantHandler = async (
     }
   );
 
-  return res.data;
+  return res?.data as PagedResponse<TenantProps>;
 };
 
 export type GetTenantFnProps = {
@@ -60,7 +60,7 @@ export type TenantTableProps = Pick<
 
 export const useGetContact = ({ filter, enabled }: queryConfigOption) => {
   return useQuery<PagedResponse<TenantProps>, Error>({
-    queryKey: ["tenants"],
+    queryKey: ["tenants", JSON.stringify(filter)],
     queryFn: () => getTenantFn(filter),
     enabled,
   });

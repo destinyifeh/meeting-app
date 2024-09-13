@@ -31,6 +31,7 @@ const Otp = () => {
     const { exp } = jwtDecode(response.data?.accessToken);
     document.cookie = `rememberMe=${rememberMe};path=/;max-age=${exp};SameSite=Lax;`;
     document.cookie = `accessToken=${response.data.accessToken};path=/;max-age=${exp};SameSite=Lax;`;
+    document.cookie = `role=${response?.data?.role};path=/;max-age=${exp};SameSite=Lax;`;
     showToast("Token verified successfully", "success");
     router.replace(`/app/tenants`);
   };

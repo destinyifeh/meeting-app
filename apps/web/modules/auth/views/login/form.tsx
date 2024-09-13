@@ -44,6 +44,15 @@ export const LoginForm = () => {
   const onSuccess = (response: ServerResponse) => {
     const remember = isChecked ? "yes" : "no";
 
+    localStorage.setItem(
+      "user",
+      JSON.stringify({
+        role: response.data?.role,
+        name: response?.data?.firstName,
+        userId: response?.data.userId,
+      })
+    );
+
     if (response?.data?.role === "SuperAdmin") {
       router.push(
         redirectTo
@@ -57,19 +66,19 @@ export const LoginForm = () => {
     const { exp } = jwtDecode(response.data?.accessToken);
 
     document.cookie = `rememberMe=${remember};path=/;max-age=${exp};SameSite=Lax;`;
-
+    document.cookie = `role=${response?.data?.role};path=/;max-age=${exp};SameSite=Lax;`;
     document.cookie = `accessToken=${response.data.accessToken};path=/;max-age=${exp};SameSite=Lax;`;
 
-    router.replace(redirectTo ? redirectTo : `/app/tenants`);
+    router.replace(redirectTo ? redirectTo : `/app/dashboard`);
 
-    showToast("Logged in successfull", "success");
+    showToast("Logged in successfully", "success");
   };
 
-  useEffect(() => {
-    // Prefetch the dashboard page
-    router.prefetch("/app/tenant");
-    router.prefetch("/auth/opt");
-  }, [router]);
+  // useEffect(() => {
+  //   // Prefetch the dashboard page
+  //   router.prefetch("/app/tenant");
+  //   router.prefetch("/auth/opt");
+  // }, [router]);
 
   const login = useLogin({
     onSuccess,
