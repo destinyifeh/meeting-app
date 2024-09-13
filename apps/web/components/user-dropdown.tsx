@@ -7,6 +7,7 @@ export const UserDropDown = () => {
   const logoutHandler = () => {
     deleteCookie("accessToken");
     deleteCookie("rememberMe");
+    deleteCookie("role");
 
     router.replace("/auth/login");
   };
