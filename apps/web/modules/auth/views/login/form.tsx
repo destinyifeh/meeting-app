@@ -48,7 +48,8 @@ export const LoginForm = () => {
       "user",
       JSON.stringify({
         role: response.data?.role,
-        name: response?.data?.firstName,
+        firstName: response?.data?.firstName,
+        lastName: response?.data?.lastName,
         userId: response?.data.userId,
       })
     );

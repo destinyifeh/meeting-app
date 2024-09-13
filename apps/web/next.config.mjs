@@ -2,7 +2,7 @@
 const nextConfig = {
   transpilePackages: ["@vms/ui"],
   images: {
-    unoptimized: true,
+    // unoptimized: true,
     remotePatterns: [
       {
         hostname: "res.cloudinary.com",
