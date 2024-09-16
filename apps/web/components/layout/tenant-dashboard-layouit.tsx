@@ -2,6 +2,7 @@
 
 import Shell, { NavigationItemType } from "@components/Shell";
 import { Logo } from "@vms/ui";
+import { Params } from "app/_types";
 import classNames from "classnames";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -13,8 +14,10 @@ import { MdDashboard } from "react-icons/md";
 
 export const TenantDashboardLayout = ({
   children,
+  params,
 }: {
   children: ReactNode;
+  params: Params;
 }) => {
   const ADMIN_NAVIGATION: NavigationItemType[] = [
     {
@@ -138,5 +141,10 @@ export const TenantDashboardLayout = ({
       </div>
     );
   };
-  return <Shell sidebarContainer={<Sidebar />}> {children}</Shell>;
+  return (
+    <Shell params={params} sidebarContainer={<Sidebar />}>
+      {" "}
+      {children}
+    </Shell>
+  );
 };
