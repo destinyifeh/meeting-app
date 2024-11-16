@@ -4,7 +4,6 @@ import { Lato, Poppins } from "next/font/google";
 import "./globals.css";
 
 import AppProvider from "@lib/tanstack-provider";
-import { Toaster } from "react-hot-toast";
 
 const poppins = Poppins({
   weight: ["400", "500", "600", "700", "800"],
@@ -36,12 +35,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${poppins.variable} ${lato.variable}`}>
-      <body className="bg-subtle font-sans antialiased text-base">
-        <AppProvider>
-          <Toaster />
-
-          {children}
-        </AppProvider>
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+      ></meta>
+      <body className="bg-subtle font-sans antialiased text-base text-black">
+        <AppProvider>{children}</AppProvider>
       </body>
     </html>
   );

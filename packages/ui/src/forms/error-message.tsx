@@ -1,3 +1,5 @@
+"use client";
+
 import { TriangleAlert } from "lucide-react";
 import { useFormContext } from "react-hook-form";
 
@@ -15,9 +17,9 @@ export const ErrorMessage = ({ fieldName }: ErrorMessageProps) => {
 
   if (error?.message) {
     return (
-      <div className="text-red-900 flex space-x-1 text-center text-sm mt-1">
+      <div className="text-red-900 flex space-x-1 text-center text-[14px] mt-1">
         <span className="flex items-center">
-          <TriangleAlert className="text-red-900 h-4 w-4" />
+          <TriangleAlert className="text-red-900 h-5 w-5" />
         </span>
         <span>{error?.message as string}</span>
       </div>
@@ -34,10 +36,10 @@ export const ErrorMessage = ({ fieldName }: ErrorMessageProps) => {
         return (
           <div
             key={idx}
-            className="text-red-900 flex space-x-1 text-center text-sm mt-1"
+            className="text-red-900 flex space-x-1 text-center text-[14px] mt-1"
           >
             <span className="flex items-center">
-              <TriangleAlert className="text-red-900 h-4 w-4" />
+              <TriangleAlert className="text-red-900 h-5 w-5" />
             </span>
             <span>{ruleObj?.message ?? ""}</span>
           </div>

@@ -6,7 +6,10 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Button } from "@vms/ui";
 import { ReactNode } from "react";
+import { ErrorBoundary } from "react-error-boundary";
+import { Toaster } from "react-hot-toast";
 
 export function makeQueryClient() {
   return new QueryClient({
@@ -50,10 +53,30 @@ export default function TanstackProviders({
   const queryClient = getQueryClient();
 
   return (
-    <QueryClientProvider client={queryClient}>
-      {process.env.NODE_ENV !== "production" && <ReactQueryDevtools />}
+    <ErrorBoundary FallbackComponent={MainErrorFallback}>
+      <QueryClientProvider client={queryClient}>
+        <Toaster />
+        {process.env.NODE_ENV !== "production" && <ReactQueryDevtools />}
 
-      {children}
-    </QueryClientProvider>
+        {children}
+      </QueryClientProvider>
+    </ErrorBoundary>
   );
 }
+
+export const MainErrorFallback = () => {
+  return (
+    <div
+      className="flex h-screen w-screen flex-col items-center justify-center text-red-500"
+      role="alert"
+    >
+      <h2 className="text-lg font-semibold">Ooops, something went wrong :( </h2>
+      <Button
+        className="mt-4"
+        onClick={() => window.location.assign(window.location.origin)}
+      >
+        Refresh
+      </Button>
+    </div>
+  );
+};

@@ -41,12 +41,12 @@ export const CreateTenantStepOne = ({
               type="text"
               placeholder="Tenant Name"
               containerClassName="mb-3"
-              {...register("name")}
+              {...register("Name")}
               className=" w-full p-4 rounded-lg  h-[4.5rem] placeholder:text-[14px] text-[16px]"
             />
             <InputField
               type="email"
-              {...register("email")}
+              {...register("Email")}
               placeholder="Email"
               containerClassName="mb-3"
               className=" w-full p-4 rounded-lg  h-[4.5rem] placeholder:text-[14px] text-[16px]"
@@ -55,7 +55,7 @@ export const CreateTenantStepOne = ({
               type="text"
               placeholder="Description"
               containerClassName="mb-3"
-              {...register("description")}
+              {...register("Description")}
               className=" w-full p-4 rounded-lg  h-[4.5rem] placeholder:text-[14px] text-[16px]"
             />
           </div>

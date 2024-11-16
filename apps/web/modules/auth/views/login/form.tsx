@@ -7,6 +7,7 @@ import {
   PasswordInputField,
   showToast,
 } from "@vms/ui";
+import { ErrorMessageProps } from "app/_types";
 import classNames from "classnames";
 import { jwtDecode } from "jwt-decode";
 
@@ -41,20 +42,44 @@ export const LoginForm = () => {
   const { register, handleSubmit, formState } = methods;
 
   const onSuccess = (response: ServerResponse) => {
-    const { exp } = jwtDecode(response.data.accessToken);
+    const remember = isChecked ? "yes" : "no";
 
-    if (isChecked) {
-      document.cookie = `rememberMe=yes;path=/;max-age=${exp};SameSite=Lax;`;
-    } else {
-      document.cookie = `rememberMe=no;path=/;max-age=${exp};SameSite=Lax;`;
+    localStorage.setItem(
+      "user",
+      JSON.stringify({
+        role: response.data?.role,
+        firstName: response?.data?.firstName,
+        lastName: response?.data?.lastName,
+        userId: response?.data.userId,
+      })
+    );
+
+    if (response?.data?.role === "SuperAdmin") {
+      router.push(
+        redirectTo
+          ? redirectTo
+          : `/auth/otp?q=${response.data?.otp}&uid=${response.data?.userId}&remember=${remember}&uemail=${response.data?.userName}`
+      );
+
+      return;
     }
 
+    const { exp } = jwtDecode(response.data?.accessToken);
+
+    document.cookie = `rememberMe=${remember};path=/;max-age=${exp};SameSite=Lax;`;
+    document.cookie = `role=${response?.data?.role};path=/;max-age=${exp};SameSite=Lax;`;
     document.cookie = `accessToken=${response.data.accessToken};path=/;max-age=${exp};SameSite=Lax;`;
 
-    router.replace(redirectTo ? redirectTo : "/app/tenants");
+    router.replace(redirectTo ? redirectTo : `/app/dashboard`);
 
-    showToast("Logged in successfull", "success");
+    showToast("Logged in successfully", "success");
   };
+
+  // useEffect(() => {
+  //   // Prefetch the dashboard page
+  //   router.prefetch("/app/tenant");
+  //   router.prefetch("/auth/opt");
+  // }, [router]);
 
   const login = useLogin({
     onSuccess,
@@ -133,10 +158,6 @@ export const LoginForm = () => {
   );
 };
 
-type ErrorMessageProps = {
-  message: string;
-  code: string;
-};
 export const ErrorMessage = ({ message, code }: ErrorMessageProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const timerId = useRef<NodeJS.Timeout>();

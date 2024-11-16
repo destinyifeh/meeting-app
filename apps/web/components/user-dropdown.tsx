@@ -1,20 +1,43 @@
+"use client";
+
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { deleteCookie } from "@vms/lib";
+
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export const UserDropDown = () => {
   const router = useRouter();
+
+  const [initial, setInitial] = useState("");
   const logoutHandler = () => {
     deleteCookie("accessToken");
     deleteCookie("rememberMe");
-
-    router.replace("/auth/login");
+    deleteCookie("role");
+    // router.refresh();
+    // router.replace("/logout");
+    window.location.href = "/auth/login";
   };
+
+  useEffect(() => {
+    const userString = localStorage.getItem("user");
+
+    if (userString) {
+      const user = JSON.parse(userString);
+
+      const firstName = user.firstName as string;
+      const lastName = user.lastName as string;
+
+      const initial = firstName[0] ?? "" + lastName[0] ?? "";
+
+      setInitial(initial.toUpperCase());
+    }
+  }, []);
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
         <div className="h-[5.4rem] cursor-pointer font-bold leading-[21px] text-[14px]  bg-emphasis w-[5.4rem] flex justify-center items-center rounded-full">
-          ST
+          {initial}
         </div>
       </DropdownMenu.Trigger>
 

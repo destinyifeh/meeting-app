@@ -28,9 +28,12 @@ export type ServerResponse = {
 export type LoginResponse = {
   data: string;
   firstName: string;
+  lastName: string;
   accessToken: string;
   userId: string;
   userName: string;
+  otp?: string;
+  role: string;
 };
 
 export const useLogin = (

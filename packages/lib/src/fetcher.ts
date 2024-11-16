@@ -1,4 +1,4 @@
-interface FetchError extends Error {
+export interface FetchError extends Error {
   status: number;
 }
 export async function fetchJson<JSON = unknown>(
@@ -8,7 +8,11 @@ export async function fetchJson<JSON = unknown>(
   const res = await fetch(input, init);
 
   if (!res.ok) {
-    const error = await res.text();
+    let error = await res.text();
+    if (res.status === 401) {
+      error = res.statusText;
+    }
+
     const err = new Error(error) as FetchError;
     err.status = res.status;
     throw err;
